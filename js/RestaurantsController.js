@@ -12,4 +12,5 @@ restaurants.controller('RestaurantsCtrl', function RestaurantsCtrl($scope) {
     var index = $scope.restaurants.indexOf(restaurant);
     $scope.restaurants.splice(index, 1);
   };
+
 });

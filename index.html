@@ -14,8 +14,29 @@
           <h4>Search Restaurants</h4>
           <form class="form-inline" role="form">
             <div class="form-group">
-              <input ng-model="query" type="text" class="form-control" placeholder="search" />
+              <input ng-model="search.name" type="text" class="form-control" placeholder="Search by name" />
+              <input ng-model="search.food" type="text" class="form-control" placeholder="Search by cuisine" />
+              <select ng-model="search.location" class="form-control">
+                <option value="">Choose</option>
+                <option value="northWest">North West</option>
+                <option value="northEast">North East</option>
+                <option value="north">North</option>
+                <option value="southEast">South East</option>
+                <option value="southWest">South West</option>
+              </select>
+
+              <div class="radio">
+                <label><input ng-model="query.price" type="radio" name="optionRadios" id="optionsRadio1" value="$">$</label>
+              </div>
+              <div class="radio">
+                <label><input ng-model="query.price" type="radio" name="optionRadios" id="optionsRadio2" value="$$">$$</label>
+              </div>
+              <div class="radio">
+                <label><input ng-model="query.price" type="radio" name="optionRadios" id="optionsRadio3" value="$$$">$$$</label>
             </div>
+              <!-- <div class="radio">
+                <label><input type="radio" ng-model="query.price" name="optionRadios" id="optionsRadio4" value="">$-$$$</label>
+              </div> -->
           </form>
           </div>
         </div>
@@ -24,7 +45,7 @@
           <h2 ng-show="restaurants.length && filtered.length"> Restaurant List</h2>
           <h2 ng-show="restaurants.length && !filtered.length">No Matches</h2>
           <ul>
-            <li ng-repeat="item in filtered = (restaurants | filter:query)">
+            <li ng-repeat="item in filtered = (restaurants | filter:search:result | filter:query:true)">
               <span ng-click="editing = true" ng-hide="editing">
                 {{item.name}}
                 {{item.food}}
@@ -49,18 +70,20 @@
             <div class="form-group">
               <input type="text" ng-model="restaurantName" class="form-control" placeholder="Enter name" required>
               <input type="text" ng-model="restaurantFood" class="form-control" placeholder="Enter food type" required>
-              <select class="form-control" ng-model="restaurantLocation">
+              <select ng-model="restaurantLocation" class="form-control" name="locations" id="locations">
+                <option value="">Choose location</option>
                 <option value="northWest">North West</option>
                 <option value="northEast">North East</option>
                 <option value="north">North</option>
                 <option value="southEast">South East</option>
                 <option value="southWest">South West</option>
               </select>
-              <select class="form-control" placeholder="$" ng-model="restaurantPrice" >
+              <select class="form-control" name="prices" id="prices" ng-model="restaurantPrice" >
+                <option value="">$-$$$</option>
                 <option value="$">$</option>
                 <option value="$$">$$</option>
                 <option value="$$$">$$$</option>
-              </select>
+              </select >
               <button class="btn btn-default btn-sm" type="submit">Save</button>
             </div>
           </form>
